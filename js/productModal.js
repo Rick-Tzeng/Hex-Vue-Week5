@@ -64,7 +64,7 @@ export default {
 
               <div class="col-6">
                 <img :src="product.imageUrl" class="img-fluid img-thumbnail"
-                  alt="product.title" />
+                  :alt="product.title" />
               </div>
 
               <div class="col-6">

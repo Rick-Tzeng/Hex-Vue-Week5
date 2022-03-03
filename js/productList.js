@@ -15,7 +15,7 @@ export default {
     <tbody>
       <tr v-for="product in products" :key="product.id">
         <td>
-          <img :src="product.imageUrl" alt="product.title"
+          <img :src="product.imageUrl" :alt="product.title"
             style="width: 160px; height: 120px; object-fit: cover"/>
         </td>
         <td><span class="fw-bold h5">{{ product.title }}</span></td>

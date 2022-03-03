@@ -30,7 +30,7 @@ export default {
     style="position:fixed;top:35px;right:35px">
     <div class="toast-header bg-primary text-white">
       <strong>{{ title }}</strong>
-      <button type="button" class="btn-close btn-close-dark me-2 m-auto"
+      <button type="button" class="btn-close btn-close-white me-2 m-auto"
         data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
     <div class="toast-body">

@@ -2,7 +2,7 @@ export default {
   props: ['cartData', 'isLoadingItem'],
   data() {
     return {
-      labels: ['項次', '商品名稱', '數量', '單價／單位', '小計', '取消'],
+      labels: ['取消', '項次', '商品名稱', '數量', '單價／單位', '小計'],
     };
   },
   emits: ['remove-cart-item', 'update-cart-item', 'delete-all-cart'],
@@ -22,8 +22,17 @@ export default {
     <tbody>
       <template v-if="cartData.carts">
         <tr v-for="item in cartData.carts" :key="item.id">
+          <td style="width:10%">
+            <button type="button" class="btn btn-outline-danger"
+              @click="$emit('remove-cart-item', item.id, item.product.title)"
+              :disabled="item.id === isLoadingItem">
+              <span class="spinner-grow spinner-grow-sm"
+              v-show="item.id === isLoadingItem"></span>
+              &#x2573
+            </button>
+          </td>
           <td style="width:15%">{{ cartData.carts.indexOf(item) + 1 }}</td>
-          <td style="width:20%">{{ item.product.title }}</td>
+          <td style="width:25%">{{ item.product.title }}</td>
           <td style="width:15%">
             <!-- <input type="number" class="form-control fw-bold text-center"
               min="1" v-model.number="item.qty"
@@ -37,7 +46,7 @@ export default {
               </option>
             </select>
           </td>
-          <td style="width:15%">
+          <td style="width:20%">
             <div v-if="!item.product.price" class="h5">
               {{ item.product.origin_price }} 元 / {{ item.product.unit }}
             </div>
@@ -45,28 +54,19 @@ export default {
               {{ item.product.price }} 元 / {{ item.product.unit }}
             </div>
           </td>
-          <td style="width:20%">
+          <td style="width:15%" class="text-end">
             <div class="h5">{{ item.total }}</div>
-          </td>
-          <td style="width:15%">
-            <button type="button" class="btn btn-outline-danger"
-              @click="$emit('remove-cart-item', item.id, item.product.title)"
-              :disabled="item.id === isLoadingItem">
-              <span class="spinner-grow spinner-grow-sm"
-              v-show="item.id === isLoadingItem"></span>
-              &#x2573
-            </button>
           </td>
         </tr>
       </template>
     </tbody>
     <tfoot>
       <tr v-if="cartData.total === cartData.final_total">
-        <td colspan="4" class="h4 fw-bold text-end">總計</td>
+        <td colspan="5" class="h4 fw-bold text-end">總計</td>
         <td class="h4 text-end">{{ cartData.total }}</td>
       </tr>
       <tr v-else>
-        <td colspan="4" class="h4 fw-bold text-success text-end">折扣價</td>
+        <td colspan="5" class="h4 fw-bold text-success text-end">折扣價</td>
         <td class="h4 text-success text-end">{{ cartData.final_total }}</td>
       </tr>
     </tfoot>
